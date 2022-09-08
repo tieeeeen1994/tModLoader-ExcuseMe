@@ -1,5 +1,7 @@
 Simple mod to allow any item that has, damage, has knockback and can be swung to move Town NPCs out of the way.
 
+GitHub Repository: https://github.com/tieeeeen1994/tModLoader-ExcuseMe
+
 Changelog:
 
 v0.1
