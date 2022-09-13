@@ -1,8 +1,13 @@
 ﻿# Summary
 
-Simple mod to allow any item that has, damage, has knockback and can be swung to move Town NPCs out of the way.
+Simple mod to allow any item that is treated as melee, has damage and knockback to move Town NPCs out of the way.
 
 # Changelog
+
+v0.2
+- Remove the condition for use animations to allow more melee weapons to move Town NPCs.
+- Use the same logic for melee weapons towards enemies for checking hits to Town NPCs as well.
+- For example, Town NPCs won't be damaged if there are blocks in the way (just like how you can't damage enemies if there are blocks).
 
 v0.1
 - Initial release.

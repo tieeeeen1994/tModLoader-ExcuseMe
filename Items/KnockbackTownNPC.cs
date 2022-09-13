@@ -11,15 +11,20 @@ namespace ExcuseMe.Items
 
 		public override bool InstancePerEntity => true;
 
-		public override bool? CanHitNPC(Item item, Player player, NPC target)
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation)
+        {
+			return ValidItemForKnockback(entity);
+        }
+
+        public override bool? CanHitNPC(Item item, Player player, NPC target)
 		{
-			if (ValidItemForKnockback(item) && target.townNPC && meleeHitbox.Intersects(target.Hitbox)) return true;
+			if (ValidItemForKnockback(item) && target.townNPC && IsHitValid(player, target)) return true;
 			return null;
 		}
 
 		public override void ModifyHitNPC(Item item, Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
 		{
-			if (ValidItemForKnockback(item) && target.townNPC && meleeHitbox.Intersects(target.Hitbox))
+			if (ValidItemForKnockback(item) && target.townNPC && IsHitValid(player, target))
 			{
 				damage = 0;
 				crit = false;
@@ -37,8 +42,12 @@ namespace ExcuseMe.Items
 
 		private bool ValidItemForKnockback(Item item)
 		{
-			return !item.noMelee && item.knockBack > 0f && item.damage > 0 &&
-				   item.useStyle == ItemUseStyleID.Swing || item.useStyle == ItemUseStyleID.Thrust || item.useStyle == ItemUseStyleID.Rapier;
+			return !item.noMelee && item.knockBack > 0f && item.damage > 0;
 		}
+
+		private bool IsHitValid(Player source, NPC target)
+        {
+            return meleeHitbox.Intersects(target.Hitbox) && Collision.CanHit(source, target);
+        }
     }
 }
