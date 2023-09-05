@@ -22,17 +22,17 @@ namespace ExcuseMe.Items
 			return null;
 		}
 
-		public override void ModifyHitNPC(Item item, Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
-		{
-			if (ValidItemForKnockback(item) && target.townNPC && IsHitValid(player, target))
-			{
-				damage = 0;
-				crit = false;
-				knockBack *= 3;
+        public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (ValidItemForKnockback(item) && target.townNPC && IsHitValid(player, target))
+            {
+                modifiers.DisableCrit();
+				modifiers.FinalDamage *= 0;
+				modifiers.Knockback *= 3;
             }
         }
 
-		public override void UseItemHitbox(Item item, Player player, ref Rectangle hitbox, ref bool noHitbox)
+        public override void UseItemHitbox(Item item, Player player, ref Rectangle hitbox, ref bool noHitbox)
 		{
 			if (ValidItemForKnockback(item))
 			{
